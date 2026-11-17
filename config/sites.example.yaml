@@ -1,0 +1,39 @@
+sites:
+  demo-jsonld:
+    base_url: "https://annonces.example-immo.fr"
+    search_path: "/recherche/{transaction}/{city}?page={page}"
+    parser: jsonld
+    respect_robots: true
+    delay: 1.5
+    max_pages: 10
+    visit_details: true
+    default_transaction: ""
+
+  demo-html:
+    base_url: "https://www.example-portail.fr"
+    search_path: "/annonces?type={transaction}&ville={city}&p={page}"
+    parser: html
+    respect_robots: true
+    delay: 2.0
+    max_pages: 5
+    visit_details: true
+    default_transaction: "location"
+    list_items: "article.annonce"
+    list_fields:
+      title: { selector: "h2 a", attr: text }
+      url: { selector: "h2 a", attr: href }
+      price: { selector: ".prix", attr: text, type: float }
+      city: { selector: ".ville", attr: text }
+      surface_m2: { selector: ".surface", attr: text, type: float }
+    detail_fields:
+      title: { selector: "h1", attr: text }
+      price: { selector: ".prix", attr: text, type: float }
+      address: { selector: ".adresse", attr: text }
+      city: { selector: ".adresse", attr: text, regex: ",\\s*(?:\\d{5}\\s*)?([^,]+)$" }
+      postal_code: { selector: ".adresse", attr: text, regex: "(\\d{5})" }
+      surface_m2: { selector: ".surface", attr: text, type: float }
+      rooms: { selector: ".caracteristiques", attr: text, regex: "(\\d+)\\s*pi[eè]ces", type: int }
+      bedrooms: { selector: ".caracteristiques", attr: text, regex: "(\\d+)\\s*chambres?", type: int }
+      bathrooms: { selector: ".caracteristiques", attr: text, regex: "(\\d+)\\s*salle", type: int }
+      description: { selector: ".description", attr: text }
+      images: { selector: ".galerie img", attr: src }

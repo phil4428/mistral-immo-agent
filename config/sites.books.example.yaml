@@ -1,0 +1,21 @@
+sites:
+  books:
+    base_url: "https://books.toscrape.com"
+    search_path: "/catalogue/page-{page}.html"
+    parser: html
+    respect_robots: true
+    delay: 1.0
+    max_pages: 2
+    visit_details: true
+    list_items: "article.product_pod"
+    list_fields:
+      title: { selector: "h3 a", attr: text }
+      url: { selector: "h3 a", attr: href }
+      price: { selector: "p.price_color", attr: text, type: float }
+      currency: { value: GBP }
+    detail_fields:
+      title: { selector: "h1", attr: text }
+      price: { selector: "p.price_color", attr: text, type: float }
+      currency: { value: GBP }
+      description: { selector: "#product_description + p", attr: text }
+      images: { selector: "#product_gallery img", attr: src, multiple: true }

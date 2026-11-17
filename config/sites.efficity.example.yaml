@@ -1,0 +1,20 @@
+sites:
+  efficity-vente:
+    base_url: "https://www.efficity.com"
+    search_path: "/annonces/vente/{city}?page={page}"
+    parser: jsonld
+    respect_robots: true
+    delay: 5.0
+    max_pages: 3
+    visit_details: true
+    default_transaction: vente
+
+  efficity-location:
+    base_url: "https://www.efficity.com"
+    search_path: "/annonces/location/{city}?page={page}"
+    parser: jsonld
+    respect_robots: true
+    delay: 5.0
+    max_pages: 3
+    visit_details: true
+    default_transaction: location

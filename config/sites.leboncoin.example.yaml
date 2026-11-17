@@ -1,0 +1,30 @@
+sites:
+  leboncoin-vente:
+    base_url: "https://www.leboncoin.fr"
+    search_path: "/recherche/?category=10&locations={city}&page={page}"
+    parser: jsonld
+    respect_robots: true
+    delay: 5.0
+    max_pages: 3
+    visit_details: true
+    default_transaction: vente
+    list_items: "a[href*='/annonce/']"
+    list_fields:
+      url: { selector: "a[href*='/annonce/']", attr: href }
+      title: { selector: "h2", attr: text }
+    detail_fields: {}
+
+  leboncoin-location:
+    base_url: "https://www.leboncoin.fr"
+    search_path: "/recherche/?category=11&locations={city}&page={page}"
+    parser: jsonld
+    respect_robots: true
+    delay: 5.0
+    max_pages: 3
+    visit_details: true
+    default_transaction: location
+    list_items: "a[href*='/annonce/']"
+    list_fields:
+      url: { selector: "a[href*='/annonce/']", attr: href }
+      title: { selector: "h2", attr: text }
+    detail_fields: {}
