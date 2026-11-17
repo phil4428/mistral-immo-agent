@@ -18,11 +18,8 @@ cd "$WORK"
 git fetch origin
 git checkout -B "$BRANCH" "origin/$BRANCH" 2>/dev/null || git checkout -B "$BRANCH"
 
-if command -v rsync >/dev/null 2>&1; then
-  rsync -a --delete --exclude='.git' --exclude='__pycache__' --exclude='*.db' "$SRC"/ "$WORK"/
-else
-  tar -C "$SRC" --exclude=.git --exclude=__pycache__ --exclude='*.db' -cf - . | tar -C "$WORK" -xf -
-fi
+git ls-files -z | xargs -0 rm -f 2>/dev/null || true
+tar -C "$SRC" --exclude=.git --exclude=__pycache__ --exclude='*.db' -cf - . | tar -C "$WORK" -xf -
 
 git add -A
 if git diff --cached --quiet; then
