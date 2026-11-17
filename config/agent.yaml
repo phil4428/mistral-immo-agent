@@ -1,0 +1,9 @@
+db_path: listings.db
+delay: 1.0
+timeout: 20
+max_retries: 3
+respect_robots: true
+user_agent: "immo-agent/1.0 (+contact: admin@example.local)"
+dvf:
+  dataset_api: "https://www.data.gouv.fr/api/1/datasets/demandes-de-valeurs-foncieres-geolocalisees"
+  max_rows: 500
